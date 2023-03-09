@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Armando Guzman</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="appTic.js"></script>
+  </head>
+  <body>
+    <h1 class="titulo-pagina">TIC TAC TOE</h1>
+    <div class="contenedor">
+      <section>
+        <div class="casilla" onclick="addFicha(0)"></div>
+        <div class="casilla" onclick="addFicha(1)"></div>
+        <div class="casilla" onclick="addFicha(2)"></div>
+        <div class="casilla" onclick="addFicha(3)"></div>
+        <div class="casilla" onclick="addFicha(4)"></div>
+        <div class="casilla" onclick="addFicha(5)"></div>
+        <div class="casilla" onclick="addFicha(6)"></div>
+        <div class="casilla" onclick="addFicha(7)"></div>
+        <div class="casilla" onclick="addFicha(8)"></div>
+      </section>
+      <div class="contenedor-bloque-extra">
+        <div class="bloqueExtra">
+          <p class="titulo-bloqueExtra">Ficha Actual</p>
+          <p class="contenido-bloqueExtra fichaActual"></p>
+        </div>
+        <div class="bloqueExtra">
+          <p class="titulo-bloqueExtra">Tiempo por turno</p>
+          <p class="contenido-bloqueExtra cronometro"></p>
+        </div>
+      </div>
+    </div>
+    <div class="contenedor-contador">
+      <h1 class="titulo-puntos">Puntos</h1>
+      <div class="contador">
+        <div class="puntos">
+          <p>X</p>
+          <p id="X">0</p>
+        </div>
+        <div class="puntos">
+          <p>O</p>
+          <p id="O">0</p>
+        </div>
+        <div class="puntos">
+          <p>Tablas</p>
+          <p id="tablas">0</p>
+        </div>
+        <div class="reiniciar">
+          <button class="reset" onclick="reset()">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
