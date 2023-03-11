@@ -1,19 +1,9 @@
-/**
- * Todas las casillas tienen la clase casilla
- */
-
-
-/**
- * Almacenamos todas las casillas, es decir, todos los divs que tienen  la clase "casila" 
- * en total tenemos 9 casillas que van desde la 0 hasta la 8
- */
-
-
 let casillas = document.getElementsByClassName("casilla");
 let reloj;
 let contador = 0;
 let p;
 let posicionGanadora;
+// keyframes son los estados que tomara el elemento al aplicar la animacion
 let keyframes = [
     { transform: "translateY(0)" },
     { transform: "translateY(-10px)" },
@@ -21,12 +11,8 @@ let keyframes = [
 ];
 let pFichaActual = document.getElementsByClassName("fichaActual")[0];
 let pCronometro = document.getElementsByClassName("cronometro")[0];
-//  fill: 'forwards' 
+// con opcionesAnimacion establesco la configuracion de la animacion
 let opcionesAnimacion = { duration: 150 };
-/**
- * [0] => [0, 1, 2]
- * [1] => [3, 4, 5]
- */
 let fichaActual = true;
 let posicionesO = [];
 let posicionesX = [];
@@ -46,26 +32,10 @@ let combinacionesGanadoras = [
 
 
 /**
- * recorrer las casillas que tengo en array casillas
- * comprobar el contenio de cada una
- */
-
-
-/**
- * Push para introducir un valor en un array 
- * contain para comprobar el contenio de un array
- */
-
-/**
- * Utilizo el array posicionesLlenas para introducir aquellas posiciones que contienen un texto igual a 'X'
- */
-
-
-/**
  * Funcion que crea una linea la cual se posicion dentro de la casilla del medio de la combinacion ganadora proporcionada por paramatro
- * 
- * @param array combinacionGanadora 
- * 
+ * si la combinacion ganadora es horizontal no se aplica grado de rotacion a la lina, si vertical se aplica 90 grados y si es diagonal se aplica o 45 o 135 dependiendo de la diferencia obtenida.
+ * @param {number[]} combinacionGanadora 
+ * @returns {void} no
  */
 
 function createLinea(combinacionGanadora) {
@@ -93,10 +63,21 @@ function createLinea(combinacionGanadora) {
 
 }
 
+/**
+ * Funcion que recibe por parametro el segundo y lo pinta en el cronometro.
+ * @param {number} segundo
+ * @returns {void} no
+ */
 function pintarCronometro(segundo) {
     pCronometro.textContent = segundo;
 }
 
+/**
+ * Funcion que recibe por parametro un array con las posiciones ocupadas por alguna ficha ya sea x u o, valida si en ellas esta incluida alguna combinacion ganadora
+ * De ser el caso retorna true, si no retorna false.
+ * @param {number[]} posicionesOcupadas 
+ * @returns {boolean} boolean
+ */
 function validarGanador(posicionesOcupadas) {
     let ganadoPadre = false;
     let ganado = true;
@@ -122,21 +103,28 @@ function validarGanador(posicionesOcupadas) {
         }
 
     } while (!ganadoPadre && contadorCombinacion < 8);
-
     return ganadoPadre;
 }
 
-
+/**
+ * Funcion que recibe por parametro el id de la ficha a sumar, se recoge su contenido y se le suma uno cambiandolo en el HTML.
+ * @param  {String} ficha
+ * @returns {void} no 
+ */
 function sumarContador(ficha) {
     let textoFicha = document.getElementById(ficha);
     let valor = textoFicha.innerHTML;
     valor = parseInt(valor);
     valor++;
-    textoFicha.innerHTML = `${valor}`;
+    textoFicha.innerHTML = valor;
 }
 
 
-
+/**
+ * Funcion que se encarga de reiniciar todos aquellos valores necesarios para jugar, regresandolos a sus valores iniciales.
+ * @param no
+ * @returns no
+ */
 function reset() {
     for (let i = 0; i < casillas.length; i++) {
         casillas[i].setAttribute("onclick", `addFicha(${i})`);
@@ -152,33 +140,12 @@ function reset() {
     }
 }
 
-
 /**
- * Una vez tengo un array con las posiiones que contienen "x"
- * me interesa comparar si en el contenido de posicionesLlenas esta incluido alguna de las combinaciones de "combinacionesGanadoras"
- * 
- * En este caso:
- * [0] --> 0
- * [1] --> 1
- * [2] --> 2
- * [3] --> 5
- * 
- * En este caso en "combinacionesGanadoras" tenemos:
- * [0] --> [0, 1, 2]    //CORRECTA
+ * Funcion que crea un cronometro para el tiempo de los turnos, la primera vez que se ejecuta se crea uno nuevo, si la segunda vez se cumple que ya existe uno creado,
+ * solo se reinicia el valor a 15.
+ * @param no
+ * @returns {void} no
  */
-
-
-
-
-
-/**
- * -----------------------------------------------------------------------------------------------------
- * CONTENIDO NUEVO
- * 
- *
- */
-
-
 function timer() {
     contador = 15;
     pintarCronometro(contador);
@@ -187,7 +154,6 @@ function timer() {
             contador--;
             console.log(`contador: ${contador}`);
             pintarCronometro(contador);
-            // console.log(fichaActual);
             if (contador === 0) {
                 contador = 15;
                 if (fichaActual) {
@@ -201,19 +167,33 @@ function timer() {
     }
 }
 
+/**
+ * Funcion que eliminar el cronometro en caso de estar creado.
+ * @param no 
+ * @returns {void} no
+ */
 function stopReloj() {
     if (reloj) {
         clearInterval(reloj);
     }
 }
 
+/**
+ * Funcion que eliminar el atributo onclick de todas las casillas
+ * @param no
+ * @returns {void} no
+ */
 function removerOnClick() {
     for (let i = 0; i < casillas.length; i++) {
         casillas[i].removeAttribute("onclick");
     }
 }
 
-
+/**
+ * Funcion que pinta la ficha actual en el HTML
+ * @param no 
+ * @returns {void} no
+ */
 function pintarFichaActual() {
     if (fichaActual) {
         pFichaActual.textContent = "X";
@@ -226,7 +206,12 @@ function pintarFichaActual() {
     }
 }
 
-
+/**
+ * Funcion que recibe por parametro el numero de la ficha presionada y dependiendo del turno actual pinta en ella X u O, cambia el turno, reinicia el contador y valida si hay un ganador.
+ * de ser el caso se muestra un mensje acorde y se eliminan los eventos de click y se suma un punto ya sea para X, O o tablas.
+ * @param {number} numero 
+ * @returns {void} no
+ */
 function addFicha(numero) {
     contadorTurnos++;
     casillas[numero].removeAttribute("onclick");
@@ -270,19 +255,3 @@ function addFicha(numero) {
         stopReloj();
     }
 }
-
-
-
-
-
-
-
-/**
- * Paara acabar el juego necesitamos
- * 1. Colocar ficha x
- * 2. Comprobar en cada insercion de ficha si se ha ganado el juego
- * 3. Cm¡ambiar turno x
- * 4. Cuando hay ganador mostar mensaje
- * opciones extra 
- * - generara un contado de victorias y resetear el tablero
- */
