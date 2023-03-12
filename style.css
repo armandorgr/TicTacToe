@@ -1,9 +1,3 @@
-#cr{
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 body{
     margin: 0;
     display: flex;
@@ -133,14 +127,14 @@ section{
 
 .bloqueExtra{
     margin: 10px;
-border: 4px solid black;
-height: 30%;
-width: 100%;
-border-radius: 10px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: center;
+    border: 4px solid black;
+    height: 30%;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .titulo-bloqueExtra{

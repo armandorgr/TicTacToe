@@ -9,7 +9,9 @@ let keyframes = [
     { transform: "translateY(-10px)" },
     { transform: "translateY(0px)" },
 ];
+// cuadro donde se pinta la ficha actual.
 let pFichaActual = document.getElementsByClassName("fichaActual")[0];
+// cuadro donde se pinta el cronometro.
 let pCronometro = document.getElementsByClassName("cronometro")[0];
 // con opcionesAnimacion establesco la configuracion de la animacion
 let opcionesAnimacion = { duration: 150 };
@@ -41,6 +43,7 @@ let combinacionesGanadoras = [
 function createLinea(combinacionGanadora) {
     let linea = document.createElement("div");
     let diferencia = combinacionGanadora[0] - combinacionGanadora[1];
+
     linea.setAttribute("class", "linea")
     switch (diferencia) {
         case -3:
@@ -56,6 +59,7 @@ function createLinea(combinacionGanadora) {
             break;
     }
     casillas[combinacionGanadora[1]].appendChild(linea);
+    // al colocar la linea se anima para que no sea tan estatico
     linea.animate([
         { width: "0" },
         { width: "90%" }
@@ -152,7 +156,6 @@ function timer() {
     if (!reloj) {
         reloj = setInterval(() => {
             contador--;
-            console.log(`contador: ${contador}`);
             pintarCronometro(contador);
             if (contador === 0) {
                 contador = 15;
